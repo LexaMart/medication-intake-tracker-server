@@ -1,0 +1,27 @@
+-- Up migration
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE medication (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    intakeDate DATE,
+    destinationCount INTEGER NOT NULL,
+    count INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    creationDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT fk_medication_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Down migration
+
+ALTER TABLE medication DROP CONSTRAINT fk_medication_user;
+
+DROP TABLE IF EXISTS medication;
+
+DROP TABLE IF EXISTS users;
