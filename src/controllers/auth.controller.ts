@@ -12,7 +12,7 @@ import {
 } from "../dto/auth/auth-login.body.dto";
 
 export const authRouter = Router();
-const prefix = "auth/";
+const prefix = "/auth/";
 
 authRouter.post(
   `${prefix}register`,
@@ -37,6 +37,7 @@ authRouter.post(
     }
   }
 );
+console.log(`${prefix}register`);
 
 authRouter.post(
   `${prefix}login`,
@@ -64,10 +65,8 @@ authRouter.post(
 
       res.status(StatusCodes.OK).send({
         message: "Login successful",
-        user: {
-          id: user.id,
-          email: user.email,
-        },
+        id: user.id,
+        email: user.email,
       });
     } catch (error) {
       res.status(StatusCodes.BAD_REQUEST).send({
