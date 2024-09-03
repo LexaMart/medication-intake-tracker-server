@@ -10,12 +10,12 @@ CREATE TABLE medication (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    intakeDate DATE,
-    destinationCount INTEGER NOT NULL,
+    "intakeDate| DATE,
+    "destinationCount" INTEGER NOT NULL,
     count INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    creationDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    CONSTRAINT fk_medication_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    "userId" INTEGER NOT NULL,
+    "creationDateTime" TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT fk_medication_user FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Down migration

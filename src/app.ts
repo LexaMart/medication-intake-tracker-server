@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import { authRouter } from "./controllers/auth.controller";
 import client from "./utills/database";
 import dotenv from "dotenv";
+import { medicationRouter } from "./controllers/medication.controller";
 
 // import knex from "knex";
 
@@ -35,6 +36,7 @@ app.use(
 );
 
 app.use(authRouter);
+app.use(medicationRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

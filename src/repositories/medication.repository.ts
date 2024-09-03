@@ -10,7 +10,7 @@ class MedicationRepository {
     userId: string
   ) {
     const query = `
-      INSERT INTO medication (name, description, intakeDate, destinationCount, count, user_id)
+      INSERT INTO medication (name, description, "intakeDate", "destinationCount", count, "userId")
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
@@ -49,7 +49,7 @@ class MedicationRepository {
 
   async getMedicationsByUserId(userId: string) {
     const query = `
-      SELECT * FROM medication WHERE user_id = $1;
+      SELECT * FROM medication WHERE "userId" = $1;
     `;
     const values = [userId];
 
@@ -72,7 +72,7 @@ class MedicationRepository {
   ) {
     const query = `
       UPDATE medication
-      SET name = $2, description = $3, intakeDate = $4, destinationCount = $5, count = $6
+      SET name = $2, "description" = $3, "intakeDate" = $4, "destinationCount" = $5, count = $6
       WHERE id = $1
       RETURNING *;
     `;
