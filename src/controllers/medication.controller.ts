@@ -1,16 +1,15 @@
 import { Router } from "express";
 import { StatusCodes } from "../utills/constants";
-
-// import guard from "../middleware/guard";
+import guard from "../middleware/guard";
 import medicationService from "../services/medication.service";
 import { MedicationCreateBodyDto } from "../dto/medication/medication-create-body.dto";
 
 export const medicationRouter = Router();
 const prefix = "/medications/";
 
-medicationRouter.get(`${prefix}user/:userId`, async (req, res) => {
+medicationRouter.get(`${prefix}`, guard, async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.body.userId;
     console.log(userId);
 
     const medications = await medicationService.getMedicationsByUserId(userId);
@@ -22,7 +21,7 @@ medicationRouter.get(`${prefix}user/:userId`, async (req, res) => {
   }
 });
 
-medicationRouter.put(`${prefix}:id`, async (req, res) => {
+medicationRouter.put(`${prefix}:id`, guard, async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, intakeDate, destinationCount, count } = req.body;
@@ -44,10 +43,12 @@ medicationRouter.put(`${prefix}:id`, async (req, res) => {
 
 medicationRouter.post(
   `${prefix}`,
+  guard,
   async (req: { body: MedicationCreateBodyDto }, res) => {
     try {
-      const { name, description, intakeDate, destinationCount, count, userId } =
+      const { name, description, intakeDate, destinationCount, count } =
         req.body;
+      const userId = req.body.userId;
       console.log(req.body);
 
       const newMedication = await medicationService.createMedication(
