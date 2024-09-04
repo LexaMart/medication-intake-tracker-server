@@ -10,7 +10,6 @@ const prefix = "/medications/";
 medicationRouter.get(`${prefix}`, guard, async (req, res) => {
   try {
     const userId = req.body.userId;
-    console.log(userId);
 
     const medications = await medicationService.getMedicationsByUserId(userId);
     res.status(StatusCodes.OK).send(medications);
@@ -49,7 +48,6 @@ medicationRouter.post(
       const { name, description, intakeDate, destinationCount, count } =
         req.body;
       const userId = req.body.userId;
-      console.log(req.body);
 
       const newMedication = await medicationService.createMedication(
         name,
